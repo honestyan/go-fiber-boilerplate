@@ -1,0 +1,16 @@
+output   = "models"
+add-enum-types = true
+wipe     = true
+no-tests = true
+
+[psql]
+dbname = "test_db"
+host   = "localhost"
+port   = "5432"
+user   = "admin"
+pass   = "root"
+schema = "public"
+blacklist = []
+sslmode = "disable"
+
+
