@@ -1,10 +1,7 @@
 package handler
 
 import (
-	"log"
-
 	"github.com/gofiber/fiber/v2"
-
 	U "github.com/honestyan/go-fiber-boilerplate/utils"
 )
 
@@ -13,7 +10,7 @@ func rollbackCtxTrx(ctx *fiber.Ctx) {
 
 	if trx != nil {
 		if err := trx.Rollback(); err != nil {
-			log.Fatalf("Error rollback transaction: %v", err)
+			U.Log.Errorf("Error rolling back transaction: %v", err)
 		}
 	}
 }
@@ -28,7 +25,8 @@ func commitCtxTrx(ctx *fiber.Ctx) error {
 
 	if trx != nil {
 		if err := trx.Commit(); err != nil {
-			return BuildError(ctx, "Error commit transaction", fiber.StatusInternalServerError, err)
+			U.Log.Errorf("Error committing transaction: %v", err)
+			return BuildError(ctx, "Error committing transaction", fiber.StatusInternalServerError, err)
 		}
 	}
 

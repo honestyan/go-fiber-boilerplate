@@ -50,3 +50,43 @@ func makeCacheKey(cols boil.Columns, nzDefaults []string) string {
 	strmangle.PutBuffer(buf)
 	return str
 }
+
+type GenderEnum string
+
+// Enum values for GenderEnum
+const (
+	GenderEnumMale   GenderEnum = "male"
+	GenderEnumFemale GenderEnum = "female"
+)
+
+func AllGenderEnum() []GenderEnum {
+	return []GenderEnum{
+		GenderEnumMale,
+		GenderEnumFemale,
+	}
+}
+
+func (e GenderEnum) IsValid() error {
+	switch e {
+	case GenderEnumMale, GenderEnumFemale:
+		return nil
+	default:
+		return errors.New("enum is not valid")
+	}
+}
+
+func (e GenderEnum) String() string {
+	return string(e)
+}
+
+func (e GenderEnum) Ordinal() int {
+	switch e {
+	case GenderEnumMale:
+		return 0
+	case GenderEnumFemale:
+		return 1
+
+	default:
+		panic(errors.New("enum is not valid"))
+	}
+}

@@ -9,14 +9,14 @@ import (
 	T "github.com/honestyan/go-fiber-boilerplate/api/v1/types" 
 )
 
-func GetProducts(ctx *fiber.Ctx) error {
+func GetUsers(ctx *fiber.Ctx) error {
 	dbTrx, txErr := U.StartNewPGTrx(ctx)
 
 	if txErr != nil {
 		return H.BuildError(ctx, "Unable to get transaction", fiber.StatusInternalServerError, txErr)
 	}
 
-	products, serviceErr := S.GetProducts(dbTrx, ctx.UserContext())
+	users, serviceErr := S.GetUsers(dbTrx, ctx.UserContext())
 
 	if serviceErr != nil {
 		return H.BuildError(ctx, serviceErr.Message, serviceErr.Code, serviceErr.Error)
@@ -24,11 +24,11 @@ func GetProducts(ctx *fiber.Ctx) error {
 
 	return H.Success(ctx, fiber.Map{
 		"success": true,
-		"products": products,
+		"users": users,
 	})
 }
 
-func GetProduct(ctx *fiber.Ctx) error {
+func GetUser(ctx *fiber.Ctx) error {
 	dbTrx, txErr := U.StartNewPGTrx(ctx)
 
 	if txErr != nil {
@@ -38,10 +38,10 @@ func GetProduct(ctx *fiber.Ctx) error {
 	idInt, err := ctx.ParamsInt("id")
 
 	if err != nil {
-		return H.BuildError(ctx, "Invalid product id", fiber.StatusBadRequest, err)
+		return H.BuildError(ctx, "Invalid user id", fiber.StatusBadRequest, err)
 	}
 
-	product, serviceErr := S.GetProduct(dbTrx, ctx.UserContext(), idInt)
+	user, serviceErr := S.GetUser(dbTrx, ctx.UserContext(), idInt)
 
 	if serviceErr != nil {
 		return H.BuildError(ctx, serviceErr.Message, serviceErr.Code, serviceErr.Error)
@@ -49,36 +49,36 @@ func GetProduct(ctx *fiber.Ctx) error {
 
 	return H.Success(ctx, fiber.Map{
 		"success": true,
-		"product": product,
+		"user": user,
 	})
 }
 
-func CreateProduct(ctx *fiber.Ctx) error {
+func CreateUser(ctx *fiber.Ctx) error {
 	dbTrx, txErr := U.StartNewPGTrx(ctx)
 
 	if txErr != nil {
 		return H.BuildError(ctx, "Unable to get transaction", fiber.StatusInternalServerError, txErr)
 	}
 
-	body := &T.ProductBody{}
+	body := new(T.UserBody)
 
 	if err := ctx.BodyParser(body); err != nil {
-		return H.BuildError(ctx, "Invalid body", fiber.StatusBadRequest, err)
+		return H.BuildError(ctx, "Invalid request body", fiber.StatusBadRequest, err)
 	}
 
-	product, serviceErr := S.CreateProduct(dbTrx, ctx.UserContext(), body)
+	user, serviceErr := S.CreateUser(dbTrx, ctx.UserContext(), body)
 
 	if serviceErr != nil {
 		return H.BuildError(ctx, serviceErr.Message, serviceErr.Code, serviceErr.Error)
 	}
 
 	return H.Success(ctx, fiber.Map{
-		"ok":      1,
-		"product": product,
+		"success": true,
+		"user": user,
 	})
 }
 
-func UpdateProduct(ctx *fiber.Ctx) error {
+func UpdateUser(ctx *fiber.Ctx) error {
 	dbTrx, txErr := U.StartNewPGTrx(ctx)
 
 	if txErr != nil {
@@ -88,28 +88,28 @@ func UpdateProduct(ctx *fiber.Ctx) error {
 	idInt, err := ctx.ParamsInt("id")
 
 	if err != nil {
-		return H.BuildError(ctx, "Invalid product id", fiber.StatusBadRequest, err)
+		return H.BuildError(ctx, "Invalid user id", fiber.StatusBadRequest, err)
 	}
 
-	body := &T.ProductBody{}
+	body := new(T.UserBody)
 
 	if err := ctx.BodyParser(body); err != nil {
-		return H.BuildError(ctx, "Invalid body", fiber.StatusBadRequest, err)
+		return H.BuildError(ctx, "Invalid request body", fiber.StatusBadRequest, err)
 	}
 
-	product, serviceErr := S.UpdateProduct(dbTrx, ctx.UserContext(), idInt, body)
+	user, serviceErr := S.UpdateUser(dbTrx, ctx.UserContext(), idInt, body)
 
 	if serviceErr != nil {
 		return H.BuildError(ctx, serviceErr.Message, serviceErr.Code, serviceErr.Error)
 	}
 
 	return H.Success(ctx, fiber.Map{
-		"ok":      1,
-		"product": product,
+		"success": true,
+		"user": user,
 	})
 }
 
-func DeleteProduct(ctx *fiber.Ctx) error {
+func DeleteUser(ctx *fiber.Ctx) error {
 	dbTrx, txErr := U.StartNewPGTrx(ctx)
 
 	if txErr != nil {
@@ -119,10 +119,10 @@ func DeleteProduct(ctx *fiber.Ctx) error {
 	idInt, err := ctx.ParamsInt("id")
 
 	if err != nil {
-		return H.BuildError(ctx, "Invalid product id", fiber.StatusBadRequest, err)
+		return H.BuildError(ctx, "Invalid user id", fiber.StatusBadRequest, err)
 	}
 
-	serviceErr := S.DeleteProduct(dbTrx, ctx.UserContext(), idInt)
+	serviceErr := S.DeleteUser(dbTrx, ctx.UserContext(), idInt)
 
 	if serviceErr != nil {
 		return H.BuildError(ctx, serviceErr.Message, serviceErr.Code, serviceErr.Error)
@@ -132,3 +132,4 @@ func DeleteProduct(ctx *fiber.Ctx) error {
 		"success": true,
 	})
 }
+

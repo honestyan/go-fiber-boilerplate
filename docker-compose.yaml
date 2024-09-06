@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   app:
+    container_name: go-fiber
     build:
       context: .
       dockerfile: Dockerfile.dev
@@ -24,6 +25,7 @@ services:
     command: air
 
   db:
+    container_name: postgres14
     image: postgres:14
     environment:
       POSTGRES_DB: ${POSTGRES_DB}

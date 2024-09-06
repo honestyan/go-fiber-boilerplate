@@ -6,16 +6,10 @@ import (
 	"time"
 
 	M "github.com/honestyan/go-fiber-boilerplate/models"
-	T "github.com/honestyan/go-fiber-boilerplate/types"
+	T "github.com/honestyan/go-fiber-boilerplate/api/v1/types"
 	"github.com/gofiber/fiber/v2"
 	"github.com/volatiletech/sqlboiler/v4/boil"
 )
-
-type ProductBody struct {
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	Price       int    `json:"price"`
-}
 
 func GetProducts(dbTrx boil.ContextExecutor, ctx context.Context) ([]*M.Product, *T.ServiceError) {
 	products, err := M.Products().All(ctx, dbTrx)
@@ -53,7 +47,7 @@ func GetProduct(dbTrx boil.ContextExecutor, ctx context.Context, id int) (*M.Pro
 	return product, nil
 }
 
-func CreateProduct(dbTrx boil.ContextExecutor, ctx context.Context, body *ProductBody) (*M.Product, *T.ServiceError) {
+func CreateProduct(dbTrx boil.ContextExecutor, ctx context.Context, body *T.ProductBody) (*M.Product, *T.ServiceError) {
 	product := M.Product{
 		Name:        body.Name,
 		Description: body.Description,
@@ -83,7 +77,7 @@ func CreateProduct(dbTrx boil.ContextExecutor, ctx context.Context, body *Produc
 	return &product, nil
 }
 
-func UpdateProduct(dbTrx boil.ContextExecutor, ctx context.Context, id int, body *ProductBody) (*M.Product, *T.ServiceError) {
+func UpdateProduct(dbTrx boil.ContextExecutor, ctx context.Context, id int, body *T.ProductBody) (*M.Product, *T.ServiceError) {
 	product, err := M.FindProduct(ctx, dbTrx, id)
 
 	if err != nil {

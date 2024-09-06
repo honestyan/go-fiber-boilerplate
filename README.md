@@ -10,6 +10,7 @@ Golang API boilerplate using GoFiber and PostgreSQL
   - `/controllers` - For validating requests and calling services
   - `/services` - For business logic, database calls and other services
   - `/middlewares` - For authentication, logging, rate limiting etc.
+  - `/types` - For defining custom types that can be used across the app
 
 - `/build` - Contains built binary, gitignore'd
 - `/cmd` - Initializes the fiber app and basic middlewares configuration
@@ -18,7 +19,6 @@ Golang API boilerplate using GoFiber and PostgreSQL
 - `/handlers` - For handling responses and db transactions
 - `/models` - Auto generated models from database tables using [sqlboiler](https://pkg.go.dev/github.com/volatiletech/sqlboiler/v4@v4.16.1)
 - `/secure` - Contains SSL certificates, gitignore'd
-- `/types` - For defining custom types that can be used across the app
 - `/utils` - For utility functions
 
 - `main.go` - Entrypoint of the app
@@ -72,6 +72,24 @@ Golang API boilerplate using GoFiber and PostgreSQL
 - To run the sample product API implementation, create a table called `products` using the following query:
 
 ```sql
+DO $$
+BEGIN
+   IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'gender_enum') THEN
+      CREATE TYPE gender_enum AS ENUM ('male', 'female');
+   END IF;
+END $$;
+
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  username varchar(50) NOT NULL,
+  password varchar(255) NOT NULL,
+  email varchar(50) NOT NULL,
+  name varchar(50) NOT NULL,
+  gender gender_enum NOT NULL DEFAULT 'male',
+  created timestamp NOT NULL,
+  modified timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE IF NOT EXISTS products (
   id SERIAL PRIMARY KEY,
   name varchar(255) NOT NULL,
