@@ -5,7 +5,7 @@ services:
     container_name: go-fiber
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.dev # Use Dockerfile for production
     environment:
       - PORT=${PORT}
       - ENVIRONMENT=${ENVIRONMENT}
