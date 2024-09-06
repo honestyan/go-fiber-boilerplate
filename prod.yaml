@@ -5,7 +5,7 @@ services:
     container_name: go-fiber
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
     environment:
       - PORT=${PORT}
       - ENVIRONMENT=${ENVIRONMENT}
@@ -14,15 +14,10 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_HOST=${POSTGRES_HOST}
       - POSTGRES_PORT=${POSTGRES_PORT}
-      - AIR_CONFIG_FILE=.air.toml
     ports:
       - "${PORT}:${PORT}"
-    volumes:
-      - .:/app
-      - /app/tmp
     depends_on:
       - db
-    command: air
 
   db:
     container_name: postgres14
