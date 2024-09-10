@@ -9,14 +9,14 @@ import (
 )
 
 func SetupProductsRoutes(router fiber.Router) {
-	router.Get("/products", mw.RateLimit(C.Tier3, 0), controllers.GetProducts)
+	router.Get("/products", mw.RateLimit(C.Tier3, 0), mw.AuthMiddleware, controllers.GetProducts)
 	
-	router.Get("/products/:id", mw.RateLimit(C.Tier3, 0), controllers.GetProduct)
+	router.Get("/products/:id", mw.RateLimit(C.Tier3, 0), mw.AuthMiddleware, controllers.GetProduct)
 
-	router.Post("/products", mw.RateLimit(C.Tier2, 0), mw.ValidateRequestBody(T.ProductBody{}), controllers.CreateProduct)
+	router.Post("/products", mw.RateLimit(C.Tier2, 0), mw.AuthMiddleware, mw.ValidateRequestBody(T.ProductBody{}), mw.AuthMiddleware, controllers.CreateProduct)
 	
-	router.Patch("/products/:id", mw.RateLimit(C.Tier2, 0), mw.ValidateRequestBody(T.ProductBody{}), controllers.UpdateProduct)
+	router.Patch("/products/:id", mw.RateLimit(C.Tier2, 0), mw.ValidateRequestBody(T.ProductBody{}), mw.AuthMiddleware, controllers.UpdateProduct)
 
-	router.Delete("/products/:id", mw.RateLimit(C.Tier3, 0), controllers.DeleteProduct)
+	router.Delete("/products/:id", mw.RateLimit(C.Tier3, 0), mw.AuthMiddleware, controllers.DeleteProduct)
 
 }

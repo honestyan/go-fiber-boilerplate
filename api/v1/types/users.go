@@ -13,3 +13,8 @@ type UserBody struct {
 	Created  time.Time `json:"created"`
 	Modified time.Time `json:"modified"`
 }
+
+type LoginBody struct {
+	Username string `json:"username" validate:"required"`
+	Password string `json:"password" validate:"required"`
+}

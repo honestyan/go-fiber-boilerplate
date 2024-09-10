@@ -172,3 +172,24 @@ func DeleteUser(dbTrx *sql.Tx, ctx context.Context, id int) *T.ServiceError {
 
 	return nil
 }
+
+func Login(dbTrx *sql.Tx, ctx context.Context, body *T.LoginBody) (*M.User, *T.ServiceError) {
+	user, err := M.Users(qm.Where("username = ? OR email = ?", body.Username, body.Username)).One(ctx, dbTrx)
+	if err != nil {
+		return nil, &T.ServiceError{
+			Message: "Error retrieving user",
+			Code: fiber.StatusInternalServerError,
+			Error: err,
+		}
+	}
+
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(body.Password))
+	if err != nil {
+		return nil, &T.ServiceError{
+			Message: "Invalid username or password",
+			Code: fiber.StatusUnauthorized,
+		}
+	}
+
+	return user, nil
+}
