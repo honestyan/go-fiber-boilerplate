@@ -26,7 +26,7 @@ func GetUsers(ctx *fiber.Ctx) error {
 
 	return H.Success(ctx, fiber.Map{
 		"success": true,
-		"users": users,
+		"data":	users,
 	})
 }
 
@@ -51,7 +51,7 @@ func GetUser(ctx *fiber.Ctx) error {
 
 	return H.Success(ctx, fiber.Map{
 		"success": true,
-		"user": user,
+		"data": user,
 	})
 }
 
@@ -78,7 +78,7 @@ func CreateUser(ctx *fiber.Ctx) error {
 
 	return H.Success(ctx, fiber.Map{
 		"success": true,
-		"user": user,
+		"data": user,
 	})
 }
 
@@ -111,7 +111,7 @@ func UpdateUser(ctx *fiber.Ctx) error {
 
 	return H.Success(ctx, fiber.Map{
 		"success": true,
-		"user": user,
+		"data": user,
 	})
 }
 
@@ -173,8 +173,12 @@ func Login(ctx *fiber.Ctx) error {
 
 	return H.Success(ctx, fiber.Map{
 		"success": true,
-		// "user": user,
-		"token": token,
+		"data": fiber.Map{
+			"username": user.Username,
+			"email": user.Email,
+			"name": user.Name,
+			"token": token,
+		},
 	})
 }
 

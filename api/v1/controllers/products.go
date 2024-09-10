@@ -24,7 +24,7 @@ func GetProducts(ctx *fiber.Ctx) error {
 
 	return H.Success(ctx, fiber.Map{
 		"success": true,
-		"products": products,
+		"data":    products,
 	})
 }
 
@@ -49,7 +49,7 @@ func GetProduct(ctx *fiber.Ctx) error {
 
 	return H.Success(ctx, fiber.Map{
 		"success": true,
-		"product": product,
+		"data":    product,
 	})
 }
 
@@ -73,8 +73,8 @@ func CreateProduct(ctx *fiber.Ctx) error {
 	}
 
 	return H.Success(ctx, fiber.Map{
-		"ok":      1,
-		"product": product,
+		"success": true,
+		"data":	product,
 	})
 }
 
@@ -104,8 +104,8 @@ func UpdateProduct(ctx *fiber.Ctx) error {
 	}
 
 	return H.Success(ctx, fiber.Map{
-		"ok":      1,
-		"product": product,
+		"success": true,
+		"data":	product,
 	})
 }
 
