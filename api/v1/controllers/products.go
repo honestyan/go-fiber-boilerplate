@@ -60,11 +60,7 @@ func CreateProduct(ctx *fiber.Ctx) error {
 		return H.BuildError(ctx, "Unable to get transaction", fiber.StatusInternalServerError, txErr)
 	}
 
-	body := &T.ProductBody{}
-
-	if err := ctx.BodyParser(body); err != nil {
-		return H.BuildError(ctx, "Invalid body", fiber.StatusBadRequest, err)
-	}
+	body := ctx.Locals("validatedPayload").(*T.ProductBody)
 
 	product, serviceErr := S.CreateProduct(dbTrx, ctx.UserContext(), body)
 
@@ -91,11 +87,7 @@ func UpdateProduct(ctx *fiber.Ctx) error {
 		return H.BuildError(ctx, "Invalid product id", fiber.StatusBadRequest, err)
 	}
 
-	body := &T.ProductBody{}
-
-	if err := ctx.BodyParser(body); err != nil {
-		return H.BuildError(ctx, "Invalid body", fiber.StatusBadRequest, err)
-	}
+	body := ctx.Locals("validatedPayload").(*T.ProductBody)
 
 	product, serviceErr := S.UpdateProduct(dbTrx, ctx.UserContext(), idInt, body)
 

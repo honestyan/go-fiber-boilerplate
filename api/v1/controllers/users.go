@@ -62,11 +62,7 @@ func CreateUser(ctx *fiber.Ctx) error {
 		return H.BuildError(ctx, "Unable to get transaction", fiber.StatusInternalServerError, txErr)
 	}
 
-	body := new(T.UserBody)
-
-	if err := ctx.BodyParser(body); err != nil {
-		return H.BuildError(ctx, "Invalid request body", fiber.StatusBadRequest, err)
-	}
+	body := ctx.Locals("validatedPayload").(*T.UserBody)
 
 	user, serviceErr := S.CreateUser(dbTrx, ctx.UserContext(), body)
 
@@ -95,11 +91,7 @@ func UpdateUser(ctx *fiber.Ctx) error {
 		return H.BuildError(ctx, "Invalid user id", fiber.StatusBadRequest, err)
 	}
 
-	body := new(T.UserBody)
-
-	if err := ctx.BodyParser(body); err != nil {
-		return H.BuildError(ctx, "Invalid request body", fiber.StatusBadRequest, err)
-	}
+	body := ctx.Locals("validatedPayload").(*T.UserBody)
 
 	user, serviceErr := S.UpdateUser(dbTrx, ctx.UserContext(), idInt, body)
 
@@ -146,11 +138,7 @@ func Login(ctx *fiber.Ctx) error {
 		return H.BuildError(ctx, "Unable to get transaction", fiber.StatusInternalServerError, txErr)
 	}
 
-	body := new(T.LoginBody)
-
-	if err := ctx.BodyParser(body); err != nil {
-		return H.BuildError(ctx, "Invalid request body", fiber.StatusBadRequest, err)
-	}
+	body := ctx.Locals("validatedPayload").(*T.LoginBody)
 
 	user, serviceErr := S.Login(dbTrx, ctx.UserContext(), body)
 
