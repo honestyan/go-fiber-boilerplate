@@ -12,5 +12,3 @@ pass   = "root"
 schema = "public"
 blacklist = []
 sslmode = "disable"
-
-

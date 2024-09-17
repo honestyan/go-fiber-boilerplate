@@ -6,7 +6,7 @@ const (
 )
 
 const (
-	Tier0 = 0 // Completely blocked
+	Tier0 = 0
 
 	Tier1 = 1
 
