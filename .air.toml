@@ -22,30 +22,30 @@ tmp_dir = "build"
   send_interrupt = false
   stop_on_error = true
 
-  build_args = ""         # Arguments passed to the go build command
-  run_args = ""           # Arguments passed to the binary when executed
+  build_args = ""
+  run_args = ""
 
-  notify = true           # Enable notifications when build completes
-  notify_command = ""     # Command to run when the build succeeds/fails
+  notify = true
+  notify_command = ""
 
 [color]
-  app = ""                # No color for app output (you can set to "blue", etc.)
-  build = "yellow"        # Yellow for build output
-  main = "magenta"        # Magenta for main process output
-  runner = "green"        # Green for runner process
-  watcher = "cyan"        # Cyan for watcher process
+  app = ""
+  build = "yellow"
+  main = "magenta"
+  runner = "green"
+  watcher = "cyan"
 
 [log]
-  time = true             # Enable timestamps in logs for easier debugging
+  time = true
 
 [misc]
-  clean_on_exit = true    # Automatically clean up temp files on exit
-  restart_on_file_change = true  # Restart the app when certain files change
+  clean_on_exit = true
+  restart_on_file_change = true
 
 [watch]
-  debounce = 500          # Debounce watcher to reduce unnecessary rebuilds
-  interval = "500ms"      # Set how frequently to check for file changes
+  debounce = 500
+  interval = "500ms"
 
 [notifications]
-  slack_webhook = ""      # Add a Slack webhook to send notifications on build success/failure
-  email = ""              # Add email for sending build notifications
+  slack_webhook = ""
+  email = ""
