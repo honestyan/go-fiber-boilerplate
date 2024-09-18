@@ -1,43 +1,34 @@
-# Root configuration
 root = "."
 tmp_dir = "build"
 
 [build]
-  # Binary settings
   bin = "./build/main"
   cmd = "go build -o ./build/main ."
   delay = 1000
 
-  # Directories and files to exclude during build
   exclude_dir = ["assets", "tmp", "vendor", "build", "test", ".vscode", ".github", "README.md"]
   exclude_file = []
   exclude_regex = []
 
-  # Performance optimizations
   exclude_unchanged = false
   follow_symlink = false
 
-  # Advanced binary settings
   full_bin = ""
   include_dir = []
   include_ext = ["go", "tpl", "tmpl", "html"]
 
-  # Process control
   kill_delay = "0s"
   log = "build-errors.log" # Logs build errors
   send_interrupt = false
   stop_on_error = true
 
-  # Additional build configuration
   build_args = ""         # Arguments passed to the go build command
   run_args = ""           # Arguments passed to the binary when executed
 
-  # Notifications and feedback
   notify = true           # Enable notifications when build completes
   notify_command = ""     # Command to run when the build succeeds/fails
 
 [color]
-  # Customizing colors for different components
   app = ""                # No color for app output (you can set to "blue", etc.)
   build = "yellow"        # Yellow for build output
   main = "magenta"        # Magenta for main process output
@@ -51,7 +42,6 @@ tmp_dir = "build"
   clean_on_exit = true    # Automatically clean up temp files on exit
   restart_on_file_change = true  # Restart the app when certain files change
 
-# Additional features (optional)
 [watch]
   debounce = 500          # Debounce watcher to reduce unnecessary rebuilds
   interval = "500ms"      # Set how frequently to check for file changes
