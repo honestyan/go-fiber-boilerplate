@@ -1,6 +1,6 @@
 # Go REST API Boilerplate
 
-Golang API boilerplate using GoFiber and PostgreSQL
+Golang API boilerplate using GoFiber and PostgreSQL with SQLBoiler ORM
 
 ## Folder Structure
 
