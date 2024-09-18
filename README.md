@@ -1,33 +1,33 @@
 # Go REST API Boilerplate
 
-Golang Rest API boilerplate using [GoFiber](https://github.com/gofiber/fiber) framework and [PostgreSQL](https://www.postgresql.org/docs/) with [SQLBoiler](https://github.com/volatiletech/sqlboiler) ORM
+This is a boilerplate project for building REST APIs with Go, utilizing the [GoFiber](https://github.com/gofiber/fiber) framework, [PostgreSQL](https://www.postgresql.org/docs/) for database management, and [SQLBoiler](https://github.com/volatiletech/sqlboiler) for ORM.
 
 ## Folder Structure
 
 - `/api/v1`
 
-  - `/routes` - All API routes are defined here
-  - `/controllers` - For validating requests and calling services
-  - `/services` - For business logic, database calls and other services
-  - `/middlewares` - For authentication, logging, rate limiting etc.
-  - `/types` - For defining custom types that can be used across the app
+  - `/routes` - Contains all API route definitions.
+  - `/controllers` - Handles request validation and delegates to services.
+  - `/services` - Implements business logic, database interactions, and other services.
+  - `/middlewares` - Includes middleware for authentication, logging, rate limiting, etc.
+  - `/types` - Defines custom types used across the application.
 
-- `/build` - Contains built binary, gitignore'd
-- `/cmd` - Initializes the fiber app and basic middlewares configuration
-- `/config` - For handling configuration/env variables
-- `/db` - For handling database connections
-- `/handlers` - For handling responses and db transactions
-- `/models` - Auto generated models from database tables using SQLBoiler
-- `/secure` - Contains SSL certificates, gitignore'd
-- `/utils` - For utility functions
+- `/build` - Contains the built binary; this directory is ignored by Git.
+- `/cmd` - Initializes the Fiber application and sets up basic middleware configuration.
+- `/config` - Manages configuration and environment variables.
+- `/db` - Manages database connections and related utilities.
+- `/handlers` - Manages response formatting and database transactions.
+- `/models` - Auto-generated models from database tables using SQLBoiler.
+- `/secure` - Stores SSL certificates; this directory is ignored by Git.
+- `/utils` - Contains utility functions and helpers.
 
-- `main.go` - Entrypoint of the app
+- `main.go` - The entry point of the application.
 
 ### Pro-tip
 
-- Get beautiful folder by using Material Icon Theme in VSCode
+- Enhance your development experience by using the Material Icon Theme in VSCode for a more visually appealing folder structure.
 
-<img src="assets/folder-structure.png" width="300" height="500">
+<img src="assets/folder-structure.png" width="300" height="500" alt="Folder Structure">
 
 ## How to use
 
@@ -59,17 +59,17 @@ Golang Rest API boilerplate using [GoFiber](https://github.com/gofiber/fiber) fr
 
 ## Notes
 
-- `Success` Handler for successful requests
+- `Success` Handler for successful requests.
 
-- `BuildError` Handler for build errors
+- `BuildError` Handler for build errors.
 
-- Start new PGX trx from `controllers` only
+- Start new PGX trx from `controllers` only to ensure proper transaction handling.
 
-- `/api/v1` is the base path for all routes except `/` for health check
+- `/api/v1` is the base path for all routes except `/` for health check.
 
-- `/models` can live as a separate repo and can be imported as a git submodule
+- `/models` consider keeping this in a separate repository and importing it as a Git submodule for better modularity.
 
-- To run the sample product API implementation, create a table called `products` using the following query:
+- To set up the sample product and user API implementation, create the `products` and `users` table with the following SQL script:
 
 ```sql
 DO $$
