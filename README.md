@@ -17,7 +17,7 @@ Golang Rest API boilerplate using [GoFiber](https://github.com/gofiber/fiber) fr
 - `/config` - For handling configuration/env variables
 - `/db` - For handling database connections
 - `/handlers` - For handling responses and db transactions
-- `/models` - Auto generated models from database tables using [sqlboiler](https://pkg.go.dev/github.com/volatiletech/sqlboiler/v4@v4.16.1)
+- `/models` - Auto generated models from database tables using SQLBoiler
 - `/secure` - Contains SSL certificates, gitignore'd
 - `/utils` - For utility functions
 
