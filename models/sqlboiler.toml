@@ -11,4 +11,4 @@ user   = "admin"
 pass   = "root"
 schema = "public"
 blacklist = []
-sslmode = "disable"
+sslmode = "disable" //disabled on development
